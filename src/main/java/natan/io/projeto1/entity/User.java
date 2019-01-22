@@ -5,12 +5,13 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String name;
+	private String name;	
 	private String email;
 	
 	@ManyToMany
