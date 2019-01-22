@@ -22,14 +22,33 @@ public class DataInitializr implements ApplicationListener<ContextRefreshedEvent
 		List<User> users = userRepository.findAll();
 		
 		if(users.isEmpty()) {
-			User user = new User();
-			user.setEmail("bruno.vsilva@outlook.com");
-			user.setName("Bruno");
 			
-			userRepository.save(user);
+			createUser("Bruno", "bruno.vsilva@outlook.com");
+			createUser("Maria", "maria@outlook.com");
+			createUser("José", "jose@outlook.com");			
+			
 		}
+		// Pesquisar um ID
+		User user = userRepository.getOne(1L);
+		
+		// Delete Entity
+		// userRepository.delete(user);
+		// or 
+		// userRepository.deleteById(2L);
+		
+		// Update 
+		
+		user.setEmail("brunovschettini@outlook.com");
+		userRepository.save(user);
+		
+		System.out.println(user.getName());
 		
 	
+	}
+	
+	public void createUser(String name, String email) {
+		User user = new User(name, email);
+		userRepository.save(user);
 	}
 
 }
