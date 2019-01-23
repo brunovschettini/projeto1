@@ -29,7 +29,8 @@ public class DataInitializr implements ApplicationListener<ContextRefreshedEvent
 			
 		}
 		// Pesquisar um ID
-		User user = userRepository.getOne(1L);
+		
+		User user = userRepository.findByName("Maria");
 		
 		// Delete Entity
 		// userRepository.delete(user);
@@ -38,10 +39,22 @@ public class DataInitializr implements ApplicationListener<ContextRefreshedEvent
 		
 		// Update 
 		
-		user.setEmail("brunovschettini@outlook.com");
-		userRepository.save(user);
+		//user.setEmail("brunovschettini@outlook.com");
+		//userRepository.save(user);
 		
-		System.out.println(user.getName());
+		System.out.println("Equals: " + user.getName());
+		
+		user = userRepository.findByNameAnywhere("Maria");
+		
+		System.out.println("Anywhere: " + user.getName());
+		
+		user = userRepository.findByNameContains("Ma");
+		
+		System.out.println("EndsWiths: " + user.getName());
+		
+		user = userRepository.findByEmail("bruno.vsilva@outlook.com");
+		
+		System.out.println("Email: " + user.getName());
 		
 	
 	}
