@@ -56,6 +56,13 @@ public class DataInitializr implements ApplicationListener<ContextRefreshedEvent
 		
 		System.out.println("Email: " + user.getName());
 		
+		user = userRepository.findByNameIgnoreCase("bruno");
+		
+		if(user != null) {
+			System.out.println("IgnoreCase" + user.getName());
+		}
+		
+		
 	
 	}
 	
