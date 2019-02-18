@@ -23,3 +23,5 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+/JavaApplication15/nbproject/private/
+/JavaApplication15/build/
