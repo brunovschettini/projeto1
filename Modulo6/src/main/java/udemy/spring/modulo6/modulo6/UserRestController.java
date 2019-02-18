@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class UserController {
+public class UserRestController {
 
-    @RequestMapping(value = "user", method = RequestMethod.GET)
+    @RequestMapping(value = "users", method = RequestMethod.GET)
     public List<User> getUsers() {
         User user = new User();
         List<User> list = new ArrayList<>();
@@ -31,7 +31,7 @@ public class UserController {
         return list;
     }
 
-    @RequestMapping(value = "user", method = RequestMethod.POST)
+    @RequestMapping(value = "user/add", method = RequestMethod.POST)
     public User setUser(@RequestBody User user) {
         return user;
     }
