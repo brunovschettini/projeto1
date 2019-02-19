@@ -24,6 +24,7 @@ public class Role implements Serializable {
     }
 
     public Role(String name, StatusRole status) {
+        super();
         this.name = name;
         this.status = status;
     }    

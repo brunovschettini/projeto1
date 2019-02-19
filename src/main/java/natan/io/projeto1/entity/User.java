@@ -1,7 +1,6 @@
 package natan.io.projeto1.entity;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.persistence.*;
 
@@ -15,7 +14,7 @@ public class User implements Serializable {
     private String name;
     private String email;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Role role;
 
     public User() {
