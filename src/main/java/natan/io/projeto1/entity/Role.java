@@ -23,6 +23,12 @@ public class Role implements Serializable {
         this.name = name;
     }
 
+    public Role(String name, StatusRole status) {
+        this.name = name;
+        this.status = status;
+    }    
+    
+
     public Long getId() {
         return id;
     }
