@@ -1,6 +1,8 @@
 package natan.io.projeto1.config;
 
+import java.util.Arrays;
 import java.util.List;
+import natan.io.projeto1.entity.Functionality;
 import natan.io.projeto1.entity.Role;
 import natan.io.projeto1.entity.StatusRole;
 
@@ -37,16 +39,14 @@ public class DataInitializr implements ApplicationListener<ContextRefreshedEvent
             Role roleInativo = setRole("Admin", StatusRole.INATIVO);
             createUser("Maria", "maria@outlook.com", roleInativo);
         }
-        
 
         // Estudos sobre páginação
-        for (int i = 0; i < 1000; i++) {
-            createRole("Admin " + i, StatusRole.ATIVO);
-        }
-        for (int i = 0; i < 1000; i++) {
-            createRole("Anything " + i, StatusRole.INATIVO);
-        }
-
+//        for (int i = 0; i < 1000; i++) {
+//            createRole("Admin " + i, StatusRole.ATIVO);
+//        }
+//        for (int i = 0; i < 1000; i++) {
+//            createRole("Anything " + i, StatusRole.INATIVO);
+//        }
         PageRequest pageRequest = PageRequest.of(10, 10);
 
         Page<Role> roles = this.roleRepository.findAll(pageRequest);
@@ -54,17 +54,41 @@ public class DataInitializr implements ApplicationListener<ContextRefreshedEvent
             System.out.println("Name: " + t.getName() + " - Status: " + t.getStatus().name());
         });
 
-
         // Pesquisar um ID
         User user = userRepository.findByName("Maria");
         
-        
+
         // Persistência aula 46
-        Role role1 = new Role("Novo Adlin", StatusRole.ATIVO);
+        Role role1 = new Role("Novo Adlin", StatusRole.ATIVO, null);
         User newUSer = new User("João", "joao@silva.com.br", role1);
         userRepository.save(newUSer);
-        
         System.out.println(newUSer.getRole().getName());
+
+        
+        
+        // Criando rules em lista
+        
+        Functionality functionality = new Functionality();
+        Functionality functionality2 = new Functionality();
+        functionality.setName("Add");
+        functionality2.setName("Delete");
+        Role role3 = new Role("Role 3", StatusRole.ATIVO, Arrays.asList(functionality));
+        Role role4 = new Role("Role 4", StatusRole.ATIVO, Arrays.asList(functionality2));
+        // roleRepository.save(role3);
+        User newUSer2 = new User();
+        newUSer2.setName("Leonor");
+        newUSer2.setEmail("Leonor@Leonor.com.br");
+        newUSer2.setMultiRoles(Arrays.asList(role3, role4));
+        userRepository.save(newUSer2);
+
+        List<User> listUsers3 = userRepository.findAll();
+        for (User u : listUsers3) {
+            if(u.getMultiRoles() != null && !u.getMultiRoles().isEmpty()) {
+                u.getMultiRoles().forEach((r) -> {
+                    System.out.println(r.getName());
+                });                
+            }
+        }
 
         // Delete Entity
         // userRepository.delete(user);
@@ -129,13 +153,13 @@ public class DataInitializr implements ApplicationListener<ContextRefreshedEvent
     }
 
     public Role setRole(String name, StatusRole status) {
-        Role role = new Role(name, status);
+        Role role = new Role(name, status, null);
         return role;
         // return roleRepository.save(role);
     }
-    
+
     public Role createRole(String name, StatusRole status) {
-        Role role = new Role(name, status);
+        Role role = new Role(name, status, null);
         return roleRepository.save(role);
     }
 

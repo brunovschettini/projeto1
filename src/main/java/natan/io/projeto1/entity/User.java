@@ -1,6 +1,8 @@
 package natan.io.projeto1.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -17,6 +19,9 @@ public class User implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Role role;
 
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private List<Role> multiRoles;
+
     public User() {
     }
 
@@ -25,6 +30,7 @@ public class User implements Serializable {
         this.name = name;
         this.email = email;
         this.role = role;
+        this.multiRoles = new ArrayList<>();
     }
 
     public Long getId() {
@@ -57,6 +63,14 @@ public class User implements Serializable {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public List<Role> getMultiRoles() {
+        return multiRoles;
+    }
+
+    public void setMultiRoles(List<Role> multiRoles) {
+        this.multiRoles = multiRoles;
     }
 
 }

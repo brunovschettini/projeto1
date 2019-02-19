@@ -1,6 +1,7 @@
 package natan.io.projeto1.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 
 @Entity
@@ -15,6 +16,9 @@ public class Role implements Serializable {
     @Enumerated(EnumType.STRING)
     private StatusRole status;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Functionality> functionalities;
+
     public Role() {
     }
 
@@ -23,12 +27,14 @@ public class Role implements Serializable {
         this.name = name;
     }
 
-    public Role(String name, StatusRole status) {
+    public Role(String name, StatusRole status, List<Functionality> functionalities) {
         super();
         this.name = name;
         this.status = status;
-    }    
-    
+        if(functionalities != null && !functionalities.isEmpty()) {
+            this.functionalities = functionalities;            
+        }
+    }
 
     public Long getId() {
         return id;
@@ -52,6 +58,14 @@ public class Role implements Serializable {
 
     public void setStatus(StatusRole status) {
         this.status = status;
+    }
+
+    public List<Functionality> getFunctionalities() {
+        return functionalities;
+    }
+
+    public void setFunctionalities(List<Functionality> functionalities) {
+        this.functionalities = functionalities;
     }
 
 }
